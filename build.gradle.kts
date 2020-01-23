@@ -34,7 +34,7 @@ subprojects {
     }
 
     group = "com.hojongs"
-    version = "1.0-SNAPSHOT"
+    version = ""
 
     dependencies {
         implementation(kotlin("reflect"))
