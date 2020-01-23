@@ -1,2 +1,3 @@
 rootProject.name = "kotlin-spring-boot-grpc-example"
-include(":presentation")
+include("presentation")
+include("service")
