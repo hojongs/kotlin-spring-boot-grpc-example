@@ -1,4 +1,4 @@
-# Kotlin Spring Boot Grpc Example
+# Kotlin Spring Boot GRPC Example
 ## Usage
 ### Run Local Server
 ```shell script
