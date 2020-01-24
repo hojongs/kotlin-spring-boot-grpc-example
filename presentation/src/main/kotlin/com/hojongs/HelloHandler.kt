@@ -7,16 +7,22 @@ import org.springframework.web.reactive.function.server.ServerResponse
 import reactor.core.publisher.Mono
 
 @Component
-class HelloHandler(val helloService: HelloService) {
+class HelloHandler(
+    private val helloService: HelloService
+) {
 
     fun hello(
         request: ServerRequest
     ): Mono<ServerResponse> = helloService
         .hello()
-        .flatMap { value ->
+        .flatMap { msg ->
             ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(value)
+                .bodyValue(
+                    mapOf(
+                        "msg" to msg
+                    )
+                )
         }
 }

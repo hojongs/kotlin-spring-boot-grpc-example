@@ -8,15 +8,12 @@ class HelloServiceTest {
     private val helloService = spyk(HelloService())
 
     @Test
-    fun `test hello()`() {
-        StepVerifier.create(
-            helloService.hello()
-        )
-            .expectNext(
-                mapOf(
-                    "msg" to "hello"
-                )
+    fun `test hello() returns hello string`() {
+        StepVerifier
+            .create(
+                helloService.hello()
             )
+            .expectNext("hello")
             .verifyComplete()
     }
 }

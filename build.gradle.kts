@@ -7,6 +7,8 @@ plugins {
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("org.springframework.boot") version "2.2.4.RELEASE" apply false
     kotlin("plugin.spring") version "1.3.61" apply false
+    java
+    id("com.google.protobuf") version "0.8.11" apply false
 }
 
 allprojects {

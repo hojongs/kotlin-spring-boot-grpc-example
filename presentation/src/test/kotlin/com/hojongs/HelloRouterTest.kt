@@ -12,17 +12,17 @@ import org.springframework.test.web.reactive.server.WebTestClient
 class HelloRouterTest {
 
     @Autowired
-	private lateinit var client: WebTestClient
+    private lateinit var client: WebTestClient
 
-	@Test
-	fun `test hello()`() {
-		client.get()
-			.uri("/hello?")
-			.accept(MediaType.APPLICATION_JSON)
-			.exchange()
-			.expectStatus().isOk
-			.expectBody()
-			.jsonPath("$.msg")
-			.isEqualTo("hello")
-	}
+    @Test
+    fun `test hello() returns a response with msg=hello`() {
+        client.get()
+            .uri("/hello")
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.msg")
+            .isEqualTo("hello")
+    }
 }
