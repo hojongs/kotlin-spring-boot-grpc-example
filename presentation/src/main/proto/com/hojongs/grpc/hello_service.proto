@@ -8,6 +8,7 @@ import "com/hojongs/hello.proto";
 
 service HelloService {
     rpc SayHello (HelloRequest) returns (HelloResponse);
+    rpc InsertItem (Item) returns (Item);
 }
 
 message HelloRequest {
@@ -16,4 +17,9 @@ message HelloRequest {
 
 message HelloResponse {
     Hello hello = 1;
+}
+
+message Item {
+    int32 id = 1;
+    string name = 2;
 }

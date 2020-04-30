@@ -21,7 +21,7 @@
 - Spring Boot 2
   - Webflux
   - Reactor
-- GRPC (TODO)
+- GRPC
   - Protocol Buffer (protobuf)
 - JUnit 5
 - Mockk

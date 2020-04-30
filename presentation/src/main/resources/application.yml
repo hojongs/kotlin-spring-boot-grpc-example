@@ -2,3 +2,14 @@ server:
   port: 8383
 grpc:
   port: 6565
+spring:
+  datasource:
+    url: jdbc:postgresql://database-2.czgibyzwt2ua.ap-northeast-2.rds.amazonaws.com:5432/postgres
+    username: postgres
+    password: asdfasdf
+    hikari:
+      connection-timeout: 300000
+      connection-test-query: select 1
+      idle-timeout: 60000
+      max-lifetime: 1800000
+      maximum-pool-size: 10

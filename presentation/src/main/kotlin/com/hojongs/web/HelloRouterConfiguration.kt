@@ -1,4 +1,4 @@
-package com.hojongs
+package com.hojongs.web
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -8,12 +8,12 @@ import org.springframework.web.reactive.function.server.ServerResponse
 import org.springframework.web.reactive.function.server.router
 
 @Configuration
-class HelloRouter {
+class HelloRouterConfiguration {
 
     @Bean
-    fun router(helloHandler: HelloHandler): RouterFunction<ServerResponse> = router {
+    fun router(helloController: HelloController): RouterFunction<ServerResponse> = router {
         accept(MediaType.APPLICATION_JSON).nest {
-            GET("/hello", helloHandler::hello)
+            GET("/hello") { helloController.hello(it) }
         }
     }
 }

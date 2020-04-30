@@ -1,4 +1,4 @@
-package com.hojongs
+package com.hojongs.web
 
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -9,7 +9,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @SpringBootTest
 @AutoConfigureWebTestClient
-class HelloRouterTest {
+class HelloControllerTest {
 
     @Autowired
     private lateinit var client: WebTestClient

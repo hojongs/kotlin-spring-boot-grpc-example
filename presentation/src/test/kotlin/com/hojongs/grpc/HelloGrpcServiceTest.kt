@@ -1,55 +1,53 @@
 package com.hojongs.grpc
 
-import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import io.kotlintest.shouldBe
-import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.junit.jupiter.SpringExtension
 import reactor.test.StepVerifier
+import kotlin.random.Random
+import com.hojongs.grpc.Item as ProtoItem
 
-@ExtendWith(SpringExtension::class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE, properties = ["grpc.port=2019"])
+@SpringBootTest
 class HelloGrpcServiceTest {
 
     companion object {
-        private lateinit var channel: ManagedChannel
-
-        @BeforeAll
-        @JvmStatic
-        fun buildChannel() {
-            channel = ManagedChannelBuilder
-                .forAddress("localhost", 2019)
+        private val stub = ReactorHelloServiceGrpc.newReactorStub(
+            ManagedChannelBuilder
+                .forAddress("localhost", 6565)
                 .usePlaintext()
                 .build()
-        }
-
-        @AfterAll
-        @JvmStatic
-        fun shutdownChannel() {
-            channel.shutdown()
-        }
+        )
     }
 
-    @Test
+    //    @RepeatedTest(1)
     fun `test sayHello() returns a response with msg=hello field`() {
-        val stub = ReactorHelloServiceGrpc
-            .newReactorStub(channel)
+        val hello = "hello"
+        val request =
+            HelloRequest.newBuilder()
+                .setName(hello)
+                .build()
 
         StepVerifier
             .create(
-                stub.sayHello(
-                    HelloRequest.newBuilder()
-                        .apply {
-                            name = "hello"
-                        }
-                        .build()
-                )
-        )
-            .assertNext { it.hello.msg shouldBe "hello" }
+                stub.sayHello(request)
+                    .doOnNext { println("hello response $it") }
+            )
+            .assertNext { it.hello.msg shouldBe hello }
             .verifyComplete()
+    }
+
+    @Test
+    fun test_insertItem() {
+        val id = Random.nextInt(0, 10000)
+        val name = "item"
+        val request = ProtoItem.newBuilder()
+            .setId(id)
+            .setName(name)
+            .build()
+        val protoItem = stub.insertItem(request).block()
+
+        println("protoItem $protoItem")
+        Thread.sleep(100)
     }
 }
